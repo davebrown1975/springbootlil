@@ -55,4 +55,19 @@ public class ReservationService {
 
         return roomReservations;
     }
+
+    public List<Guest> getGuests(){
+        List<Guest> sortedGuests = new ArrayList<>();
+        Iterable<Guest> allGuests = guestRepository.findAll();
+        allGuests.forEach(guest -> {
+            sortedGuests.add(guest);
+        });
+        sortedGuests.sort(new Comparator<Guest>() {
+            @Override
+            public int compare(Guest o1, Guest o2) {
+                return o1.getLastName().compareToIgnoreCase(o2.getLastName());
+            }
+        });
+        return sortedGuests;
+    }
 }
